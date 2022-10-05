@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <title>Is This a Good Place to Cry?</title>
+    <body>
+        <h1>Data app</h1>
+        <script>
+            async function getData() {
+                const response = await fetch('/dataReceiver');
+                const data = await response.json();
+
+                for (const item of data){
+                    const root = document.createElement('div');
+                    const description= document.createElement('div');
+                    const geo = document.createElement('div');
+                    const date = document.createElement('div');
+                    description.textContent = `description: ${item.description}`;
+                    geo.textContent = `${item.lat}°, ${item.lon}°`;
+                    date.textContent = new Date(item.timestamp).toLocaleString();
+
+                    root.append(description, geo, date);
+                    document.body.append(root);
+                }
+
+                console.log(data);
+            }
+
+            getData();
+        </script>
+    </body>
+</html>
